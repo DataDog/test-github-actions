@@ -1,0 +1,38 @@
+name: validate
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Upgrade Python packaging tools
+      run: pip install --disable-pip-version-check --upgrade pip setuptools wheel
+
+    - name: Install ddev
+      run: pip install datadog-checks-dev[cli]
+
+    - name: Clone repo
+      run: git clone https://github.com/DataDog/integrations-core.git
+
+    - name: Configure ddev
+      run: |
+        ddev config set repos.core $PWD/integrations-core
+        ddev config set repo core
+
+    - name: Run validations
+      run: ddev validate all
