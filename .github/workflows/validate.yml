@@ -23,13 +23,14 @@ jobs:
     - name: Upgrade Python packaging tools
       run: pip install --disable-pip-version-check --upgrade pip setuptools wheel
 
+    # URL-encode special characters https://github.com/actions/toolkit/issues/193#issuecomment-605394935
     - name: Annotation - warning
       run: |
         echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning%0A%0ASuggestion: <link to docs>"
 
     - name: Annotation - error
       run: |
-        echo "::error file=.github/workflows/validate.yml,line=16::CI config error%0A%0ARun: `ddev validate foo --sync`"
+        echo "::error file=.github/workflows/validate.yml,line=16::CI config error%0A%0ARun: %60ddev validate foo --sync%60"
 
     - name: Annotation - unchanged file
       run: |
