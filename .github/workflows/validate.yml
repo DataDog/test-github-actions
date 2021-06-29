@@ -24,19 +24,24 @@ jobs:
       run: pip install --disable-pip-version-check --upgrade pip setuptools wheel
 
     - name: Annotation - warning
-      run: echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning"
+      run: |
+        echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning\n\nSuggestion: <link to docs>"
 
     - name: Annotation - error
-      run: echo "::error file=.github/workflows/validate.yml,line=16::CI config error"
+      run: |
+        echo "::error file=.github/workflows/validate.yml,line=16::CI config error\n\nRun: `ddev validate foo --sync`"
 
     - name: Annotation - unchanged file
-      run: echo "::error file=LICENSE,line=3::License file error"
+      run: |
+        echo "::error file=LICENSE,line=3::License file error"
 
     - name: Annotation - unknown file
-      run: echo "::error file=foo.txt::Won't display"
+      run: |
+        echo "::error file=foo.txt::Won't display"
 
     - name: Annotation - no file
-      run: echo "::error::Won't display"
+      run: |
+        echo "::error::Won't display"
 
     - name: Install ddev
       run: pip install datadog-checks-dev[cli]
