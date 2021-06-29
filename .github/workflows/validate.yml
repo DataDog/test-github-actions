@@ -23,6 +23,28 @@ jobs:
     - name: Upgrade Python packaging tools
       run: pip install --disable-pip-version-check --upgrade pip setuptools wheel
 
+    # URL-encode new lines https://github.com/actions/toolkit/issues/193#issuecomment-605394935
+    # AFAICT there is no special rendering done i.e. not Markdown
+    - name: Annotation - warning
+      run: |
+        echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning%0A%0ASuggestion: <link to docs>"
+
+    - name: Annotation - error
+      run: |
+        echo "::error file=.github/workflows/validate.yml,line=16::CI config error. Run:%0A%0Addev validate foo --sync"
+
+    - name: Annotation - unchanged file
+      run: |
+        echo "::error file=LICENSE,line=3::License file error"
+
+    - name: Annotation - unknown file
+      run: |
+        echo "::error file=foo.txt::Won't display"
+
+    - name: Annotation - no file
+      run: |
+        echo "::error::Won't display"
+
     - name: Install ddev
       run: pip install datadog-checks-dev[cli]
 
