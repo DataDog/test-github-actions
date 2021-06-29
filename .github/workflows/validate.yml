@@ -23,6 +23,9 @@ jobs:
     - name: Upgrade Python packaging tools
       run: pip install --disable-pip-version-check --upgrade pip setuptools wheel
 
+    - name: Try error
+      run: echo "::error file=.github/workflows/validate.yml,line=16,col=15::Something went wrong"
+
     - name: Install ddev
       run: pip install datadog-checks-dev[cli]
 
@@ -36,4 +39,3 @@ jobs:
 
     - name: Run validations
       run: ddev validate all
-
