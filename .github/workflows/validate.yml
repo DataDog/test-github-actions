@@ -25,11 +25,11 @@ jobs:
 
     - name: Annotation - warning
       run: |
-        echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning\n\nSuggestion: <link to docs>"
+        echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning%0A%0ASuggestion: <link to docs>"
 
     - name: Annotation - error
       run: |
-        echo "::error file=.github/workflows/validate.yml,line=16::CI config error\n\nRun: `ddev validate foo --sync`"
+        echo "::error file=.github/workflows/validate.yml,line=16::CI config error%0A%0ARun: `ddev validate foo --sync`"
 
     - name: Annotation - unchanged file
       run: |
