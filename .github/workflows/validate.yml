@@ -23,11 +23,17 @@ jobs:
     - name: Upgrade Python packaging tools
       run: pip install --disable-pip-version-check --upgrade pip setuptools wheel
 
-    - name: Try error
-      run: echo "::error file=.github/workflows/validate.yml,line=16,col=15::Something went wrong with CI config"
+    - name: Annotation - warning
+      run: echo "::warning file=.github/workflows/validate.yml,line=6::CI config warning"
 
-    - name: Try error no changes
-      run: echo "::error file=LICENSE,line=3,col=5::Something went wrong with license file"
+    - name: Annotation - error
+      run: echo "::error file=.github/workflows/validate.yml,line=16::CI config error"
+
+    - name: Annotation - unchanged file
+      run: echo "::error file=LICENSE,line=3::License file error"
+
+    - name: Annotation - unknown file
+      run: echo "::error file=foo.txt::Unknown error"
 
     - name: Install ddev
       run: pip install datadog-checks-dev[cli]
